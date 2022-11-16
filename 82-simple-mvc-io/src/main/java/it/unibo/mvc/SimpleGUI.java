@@ -2,6 +2,7 @@ package it.unibo.mvc;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import java.awt.BorderLayout;
@@ -18,6 +19,11 @@ public class SimpleGUI {
     private static final String TITLE = "My first Java graphical interface";
     private final JFrame frame = new JFrame(TITLE);
 
+    /**
+     * Creates a new SimpleGUI.
+     * 
+     * @param controller 
+     */
     public SimpleGUI(final Controller controller) {
         final JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -34,17 +40,21 @@ public class SimpleGUI {
                 try {
                     controller.printString(text.getText());
                 } catch (final IOException e) {
-
+                    JOptionPane.showMessageDialog(frame, e, "Error occured", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
-    
     }
 
     private void display() { 
         frame.setVisible(true);
     }
 
+    /**
+     * Launches the application.
+     *
+     * @param args ignored
+     */
     public static void main(final String[] args) {
         final Controller ctrl = new Controller();
         new SimpleGUI(ctrl).display();
