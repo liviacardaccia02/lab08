@@ -1,7 +1,9 @@
 package it.unibo.mvc;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 
@@ -14,7 +16,7 @@ public final class SimpleController implements Controller {
 
     @Override
     public void setString(final String string) {
-        this.nextString = string;
+        this.nextString = Objects.requireNonNull(string);
     }
 
     @Override
@@ -24,7 +26,7 @@ public final class SimpleController implements Controller {
 
     @Override
     public List<String> getHistory() {
-        return this.history;
+        return Collections.unmodifiableList(this.history);
     }
 
     @Override

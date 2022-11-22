@@ -32,6 +32,7 @@ public final class SimpleGUI {
         final JTextField text = new JTextField();
         panel1.add(text, BorderLayout.NORTH);
         final JTextArea area = new JTextArea();
+        area.setEditable(false);
         panel1.add(area, BorderLayout.CENTER);
         //south panel
         final JPanel panel2 = new JPanel();
