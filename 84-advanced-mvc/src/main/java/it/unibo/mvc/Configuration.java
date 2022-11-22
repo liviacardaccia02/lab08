@@ -1,5 +1,8 @@
 package it.unibo.mvc;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.StringTokenizer;
 
 /**
  * Encapsulates the concept of configuration.
@@ -14,6 +17,34 @@ public final class Configuration {
         this.max = max;
         this.min = min;
         this.attempts = attempts;
+    }
+
+    /**
+     * Provides the game setting read from the configuration file.
+     * 
+     * @return the configuration of the game
+     */
+    static Configuration getConfiguration() {
+        final Builder b = new Builder();
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/config.yml"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                StringTokenizer str_tok = new StringTokenizer(line);
+                String[] split_line = line.split(":");
+                if (split_line.length == 2) {
+                    if (str_tok.toString() == "minimum") {
+                        b.setMin(Integer.parseInt(str_tok.nextToken()));
+                    } else if (str_tok.toString() == "maximum") {
+                        b.setMax(Integer.parseInt(str_tok.nextToken()));
+                    } else {
+                        b.setAttempts(Integer.parseInt(str_tok.nextToken()));
+                    }
+                }
+            }
+        } catch (final Exception ex) {
+            System.out.println("An error occured while opening the file"); 
+        }
+        return b.build();
     }
 
     /**
